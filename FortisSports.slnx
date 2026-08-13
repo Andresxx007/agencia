@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/backend/" />
+  <Folder Name="/backend/src/">
+    <Project Path="backend/src/FortisSports.Api/FortisSports.Api.csproj" />
+    <Project Path="backend/src/FortisSports.Application/FortisSports.Application.csproj" />
+    <Project Path="backend/src/FortisSports.Domain/FortisSports.Domain.csproj" />
+    <Project Path="backend/src/FortisSports.Infrastructure/FortisSports.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/backend/tests/">
+    <Project Path="backend/tests/FortisSports.Tests/FortisSports.Tests.csproj" />
+  </Folder>
+</Solution>

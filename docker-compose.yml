@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres:16
+    container_name: fortis-db
+    environment:
+      POSTGRES_DB: fortis_sports
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d fortis_sports"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/src/FortisSports.Api/Dockerfile
+    container_name: fortis-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=fortis_sports;Username=postgres;Password=postgres
+      Jwt__Key: CAMBIAR_ESTA_CLAVE_EN_PRODUCCION_FORTIS_2026
+      Jwt__Issuer: FortisSports.Api
+      Jwt__Audience: FortisSports.Web
+      Storage__RootPath: /app/storage
+      Cors__FrontendUrl: http://localhost:5173
+    ports:
+      - "5000:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - api_storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: fortis-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  api_storage:

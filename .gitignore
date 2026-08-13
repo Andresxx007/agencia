@@ -1,0 +1,17 @@
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Storage
+storage/
+backend/src/FortisSports.Api/storage/
+
+# Environment
+.env
+.env.*

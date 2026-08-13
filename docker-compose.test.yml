@@ -1,0 +1,39 @@
+# Compose para ejecutar las pruebas de integración contra una BD real PostgreSQL.
+#
+# Uso:
+#   docker compose -f docker-compose.test.yml up --abort-on-container-exit --exit-code-from tests
+#
+# Devuelve el código de salida del contenedor "tests" (0 = todo verde, >0 = fallos).
+
+services:
+  db-test:
+    image: postgres:16
+    container_name: fortis-db-test
+    environment:
+      POSTGRES_DB: fortis_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d fortis_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    tmpfs:
+      - /var/lib/postgresql/data   # base de datos efímera, se borra al detener
+
+  tests:
+    build:
+      context: .
+      dockerfile: backend/tests/Dockerfile.tests
+    container_name: fortis-tests
+    environment:
+      # La variable de entorno sobreescribe la cadena de conexión en Program.cs / TestFactory.
+      # El proyecto de tests ya usa InMemory por defecto; aquí se puede cambiar a Postgres real
+      # definiendo INTEGRATION_USE_PG=true en el Dockerfile.tests y leyéndolo en WebApplicationFactory.
+      DOTNET_ENVIRONMENT: Test
+      ConnectionStrings__DefaultConnection: Host=db-test;Port=5432;Database=fortis_test;Username=postgres;Password=postgres
+    depends_on:
+      db-test:
+        condition: service_healthy
