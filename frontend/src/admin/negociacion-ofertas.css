@@ -1,0 +1,113 @@
+.oferta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.oferta-form-seccion {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  background: var(--surface-2, #f8fafc);
+}
+
+.oferta-form-seccion h4 {
+  margin: 0 0 0.85rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text, #0f172a);
+}
+
+.oferta-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+.oferta-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.oferta-form-field span {
+  font-weight: 500;
+  color: var(--muted, #64748b);
+}
+
+.oferta-form-field input,
+.oferta-form-field select,
+.oferta-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.oferta-form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.oferta-form-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.oferta-form-toggle label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.oferta-form-total {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: rgba(0, 143, 74, 0.08);
+  color: var(--primary, #008f4a);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.oferta-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.oferta-tabla-bonos {
+  font-size: 0.82rem;
+  color: var(--muted, #64748b);
+}
+
+.oferta-tabla-contrato {
+  font-size: 0.8rem;
+  color: var(--muted, #64748b);
+  margin-top: 2px;
+}
+
+.oferta-form--compacto {
+  gap: 0.75rem;
+}
+
+.oferta-form--compacto .oferta-form-seccion {
+  padding: 0.65rem 0.75rem;
+}
+
+.oferta-form--compacto .oferta-form-seccion h4 {
+  margin-bottom: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.oferta-form--compacto .oferta-form-grid {
+  gap: 0.45rem 0.65rem;
+}
+
+.oferta-form--compacto .oferta-form-field {
+  font-size: 0.8rem;
+}

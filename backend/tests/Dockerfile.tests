@@ -1,0 +1,28 @@
+# Imagen especializada para ejecutar las pruebas de integración en CI / Docker.
+#
+# Build context: raíz del repositorio (c:\agencia\)
+#
+# Se compila el proyecto de tests y se ejecuta dotnet test dentro del contenedor.
+# Los resultados se emiten a STDOUT para que el CI los pueda capturar.
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS test-runner
+WORKDIR /src
+
+# Restaurar dependencias primero (capa cacheada mientras no cambie el .csproj)
+COPY backend/src/FortisSports.Domain/FortisSports.Domain.csproj              backend/src/FortisSports.Domain/
+COPY backend/src/FortisSports.Application/FortisSports.Application.csproj    backend/src/FortisSports.Application/
+COPY backend/src/FortisSports.Infrastructure/FortisSports.Infrastructure.csproj backend/src/FortisSports.Infrastructure/
+COPY backend/src/FortisSports.Api/FortisSports.Api.csproj                    backend/src/FortisSports.Api/
+COPY backend/tests/FortisSports.Tests/FortisSports.Tests.csproj              backend/tests/FortisSports.Tests/
+
+RUN dotnet restore backend/tests/FortisSports.Tests/FortisSports.Tests.csproj
+
+# Copiar el código fuente completo y ejecutar los tests
+COPY backend/ backend/
+
+# --no-restore: ya restauramos arriba
+# --logger trx: genera reporte XML para CI (opcional)
+CMD ["dotnet", "test", "backend/tests/FortisSports.Tests/FortisSports.Tests.csproj", \
+     "--no-restore", "--verbosity", "normal", \
+     "--logger", "trx;LogFileName=/test-results/results.trx", \
+     "--results-directory", "/test-results"]

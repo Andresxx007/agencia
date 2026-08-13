@@ -1,0 +1,425 @@
+{
+  "info": {
+    "_postman_id": "5ee3df78-0936-45fe-b3b9-2b31bb56e1d4",
+    "name": "Fortis Sports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección base para autenticación y módulos iniciales."
+  },
+  "item": [
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@fortis.local\",\n  \"password\": \"Fortis123*\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Players - Get All",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/players?page=1&pageSize=20&search=&status=",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Players - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Mendoza\",\n  \"birthDate\": \"2000-01-01\",\n  \"nationality\": \"Colombia\",\n  \"mainPosition\": \"Delantero\",\n  \"currentClub\": \"Libre\",\n  \"heightCm\": 180,\n  \"weightKg\": 75,\n  \"preferredFoot\": \"Derecha\",\n  \"notes\": \"Registro inicial\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/players",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Negotiations - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"playerId\": \"{{playerId}}\",\n  \"clubName\": \"Club Ejemplo\",\n  \"offeredAmount\": 150000,\n  \"currency\": \"USD\",\n  \"conditions\": \"Pago en 2 cuotas\",\n  \"offerDate\": \"2026-04-20\",\n  \"responsibleName\": \"Representante Principal\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/negotiations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "negotiations"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Transfers - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"playerId\": \"{{playerId}}\",\n  \"originClub\": \"Club A\",\n  \"destinationClub\": \"Club B\",\n  \"transferDate\": \"2026-04-20\",\n  \"amount\": 500000,\n  \"currency\": \"USD\",\n  \"transferType\": \"Definitiva\",\n  \"conditions\": \"Sujeta a exámenes médicos\",\n  \"managedBy\": \"Representante Principal\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/transfers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "transfers"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Negotiations - Get Paged",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/negotiations?page=1&pageSize=20&status=&club=",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "negotiations"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Transfers - Get Paged",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/transfers?page=1&pageSize=20&status=&originClub=&destinationClub=",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "transfers"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Notifications - Get All",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/notifications",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "notifications"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Reports - Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reports/dashboard",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reports",
+            "dashboard"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Catalogs - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"NEGOTIATION_STATUS\",\n  \"name\": \"Estados de negociación\",\n  \"description\": \"Estados permitidos para el ciclo de negociación\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/catalogs",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "catalogs"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Reports - Export Contracts CSV",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reports/contracts/export/csv",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reports",
+            "contracts",
+            "export",
+            "csv"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intelligence - Ranking",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/intelligence/ranking",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "intelligence",
+            "ranking"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intelligence - Compatibility",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"targetPosition\": \"Delantero\",\n  \"minAge\": 18,\n  \"maxAge\": 30,\n  \"weightPosition\": 40,\n  \"weightAge\": 20,\n  \"weightContract\": 20,\n  \"weightActivity\": 20\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/intelligence/compatibility",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "intelligence",
+            "compatibility"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Player Stats - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"playerId\": \"{{playerId}}\",\n  \"matchDate\": \"2026-04-20\",\n  \"opponent\": \"Club Rival\",\n  \"minutesPlayed\": 90,\n  \"goals\": 1,\n  \"assists\": 1,\n  \"yellowCards\": 0,\n  \"redCards\": 0,\n  \"rating\": 8.1,\n  \"physicalStatus\": \"Óptimo\",\n  \"notes\": \"Buen rendimiento\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/player-stats",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "player-stats"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Players - Download Curriculum",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/players/{{playerId}}/curriculum",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "players",
+            "{{playerId}}",
+            "curriculum"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "playerId",
+      "value": ""
+    }
+  ]
+}

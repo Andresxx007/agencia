@@ -1,0 +1,6 @@
+@FortisSports.Api_HostAddress = http://localhost:5193
+
+GET {{FortisSports.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
